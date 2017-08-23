@@ -314,7 +314,7 @@ static struct cpufreq_driver msm_cpufreq_driver = {
 	.name		= "msm",
 	.attr		= msm_freq_attr,
 };
-
+/*v20-vot-cont*/
 static struct cpufreq_frequency_table *cpufreq_parse_dt(struct device *dev,
 						char *tbl_name, int cpu)
 {

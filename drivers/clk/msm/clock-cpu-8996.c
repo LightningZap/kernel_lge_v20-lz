@@ -1118,7 +1118,7 @@ static int of_get_fmax_vdd_class(struct platform_device *pdev, struct clk *c,
 	c->num_fmax = prop_len;
 	return 0;
 }
-
+/*v20-volt-cont*/
 static int cpu_clock_8996_resources_init(struct platform_device *pdev)
 {
 	struct resource *res;

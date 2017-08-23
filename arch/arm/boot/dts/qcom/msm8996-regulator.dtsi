@@ -1847,7 +1847,7 @@
 		reg-names = "pm-apc", "pm-apcc", "apcs-csr";
 		regulator-min-microvolt = <468197>;
 		regulator-max-microvolt = <892467>;
-		qcom,ldo-default-voltage = <750000>;
+		qcom,ldo-default-voltage = <750000>;/*v20-volt*/
 		qcom,retention-voltage = <520000>;
 		qcom,ldo-headroom-voltage = <150000>;
 		qcom,vref-functional-step-voltage = <4466>;
@@ -1872,7 +1872,7 @@
 		reg-names = "pm-apc", "pm-apcc", "apcs-csr";
 		regulator-min-microvolt = <468197>;
 		regulator-max-microvolt = <892467>;
-		qcom,ldo-default-voltage = <750000>;
+		qcom,ldo-default-voltage = <750000>;/*v20-volt*/
 		qcom,retention-voltage = <520000>;
 		qcom,ldo-headroom-voltage = <150000>;
 		qcom,vref-functional-step-voltage = <4466>;
