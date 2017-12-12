@@ -670,7 +670,7 @@ static int binder_update_page_range(struct binder_proc *proc, int allocate,
 
 	for (page_addr = start; page_addr < end; page_addr += PAGE_SIZE) {
 		int ret;
-		struct page **page_array_ptr;
+
 		page = &proc->pages[(page_addr - proc->buffer) / PAGE_SIZE];
 
 		BUG_ON(*page);
@@ -680,11 +680,11 @@ static int binder_update_page_range(struct binder_proc *proc, int allocate,
 				proc->pid, page_addr);
 			goto err_alloc_page_failed;
 		}
-		tmp_area.addr = page_addr;
-		tmp_area.size = PAGE_SIZE + PAGE_SIZE /* guard page? */;
-		page_array_ptr = page;
-		ret = map_vm_area(&tmp_area, PAGE_KERNEL, &page_array_ptr);
-		if (ret) {
+		ret = map_kernel_range_noflush((unsigned long)page_addr,
+					PAGE_SIZE, PAGE_KERNEL, page);
+		flush_cache_vmap((unsigned long)page_addr,
+				(unsigned long)page_addr + PAGE_SIZE);
+		if (ret != 1) {
 			pr_err("%d: binder_alloc_buf failed to map page at %pK in kernel\n",
 			       proc->pid, page_addr);
 			goto err_map_kernel_failed;
@@ -703,9 +703,6 @@ static int binder_update_page_range(struct binder_proc *proc, int allocate,
 		up_write(&mm->mmap_sem);
 		mmput(mm);
 	}
-
-	preempt_disable();
-
 	return 0;
 
 free_range:
